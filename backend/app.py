@@ -17,6 +17,18 @@ CORS(app)  # Enable CORS for Streamlit frontend
 cache = Cache(expiration=int(os.getenv("CACHE_EXPIRATION", "3600").split()[0]))
 
 
+@app.route("/", methods=["GET"])
+def index():
+    """Basic route for Render health checks and quick verification."""
+    return jsonify({"status": "ok", "service": "revised-ai-api"}), 200
+
+
+@app.route("/health", methods=["GET"])
+def health():
+    """Explicit health check endpoint."""
+    return jsonify({"status": "healthy"}), 200
+
+
 @app.route("/explain", methods=["POST"])
 def explain():
     """Endpoint for generating explanations of topics"""
