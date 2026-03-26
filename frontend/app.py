@@ -19,10 +19,13 @@ st.set_page_config(
 )
 
 # Load external CSS styling from styles.css file
-css_file = os.path.join(os.path.dirname(__file__), "styles.css")
-with open(css_file) as f:
-    css = f.read()
-st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+try:
+    css_file = os.path.join(os.path.dirname(__file__), "styles.css")
+    with open(css_file) as f:
+        css = f.read()
+    st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+except FileNotFoundError:
+    pass  # CSS file not found, continue without custom styles
 
 # Page header
 st.markdown('<h1 class="main-header">Revise AI</h1>', unsafe_allow_html=True)
@@ -90,8 +93,8 @@ if mode == "Explain":
                             {"role": "assistant", "content": ai_response}
                         )
 
-                        # Force re-rendering - FIXED LINE
-                        st.experimental_rerun()
+                        # Force re-rendering
+                        st.rerun()
                     else:
                         st.error(
                             f"Error: {response.json().get('error', 'Unknown error')}"
@@ -114,7 +117,7 @@ st.sidebar.markdown("---")
 # Additional functionality: Clear Chat button
 if st.sidebar.button("Clear Chat"):
     st.session_state.messages = []
-    st.experimental_rerun()  # FIXED LINE - Force app refresh to clear chat
+    st.rerun()  # Force app refresh to clear chat
 
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown(
