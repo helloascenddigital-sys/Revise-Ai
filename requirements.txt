@@ -1,14 +1,6 @@
-# Backend Dependencies
 flask==2.0.3
 werkzeug==2.0.3
 flask-cors==3.0.10
 gunicorn==21.2.0
-httpx==0.24.1
-
-# Frontend Dependencies
-streamlit==1.22.0
-requests==2.28.2
-
-# Common
 openai>=1.0.0
 python-dotenv==1.0.0
